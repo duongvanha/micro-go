@@ -1,17 +1,17 @@
 package main
 
 import (
-	"./authservice"
+	"./auth"
 	"fmt"
 )
 
 func main() {
-	user := authservice.User{Id: 12, UserName: "name", Password: "name"}
-	auth := authservice.AuthService{}
+	user := auth.User{Id: 12, UserName: "name", Password: "name"}
+	authService := auth.Service{}
 
-	auth.Register("sieunhangao	", "123456")
+	authService.Register("sieunhangao	", "123456")
 
-	auth.Login("sieunhangao", "123456")
+	authService.Login("sieunhangao", "123456")
 
 	fmt.Println(user.ToString())
 }
