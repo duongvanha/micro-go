@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/duongvanha/micro-go/authService"
+	"github.com/duongvanha/micro-go/authservice"
 )
 
 func main() {
