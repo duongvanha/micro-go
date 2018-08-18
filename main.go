@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	user := &authservice.User{}
-	fmt.Println(user)
+	user := authservice.User{Id: 12, UserName: "name", Password: "name"}
+
+	fmt.Println(user.ToString())
 }
