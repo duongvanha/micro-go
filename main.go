@@ -4,7 +4,9 @@ import (
 	"./movie"
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -33,6 +35,15 @@ func main() {
 
 	http.Handle("/", r)
 
-	http.ListenAndServe(":3000", nil)
+	port := os.Getenv("PORT")
+
+	log.Println("Starting HTTP service at " + port)
+
+	err := http.ListenAndServe(":"+port, nil)
+
+	if err != nil {
+		log.Println("An error occured starting HTTP listener at port " + port)
+		log.Println("Error: " + err.Error())
+	}
 
 }
