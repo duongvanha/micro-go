@@ -3,14 +3,26 @@ package main
 import (
 	"./movie"
 	"encoding/json"
-	"fmt"
+	"github.com/gorilla/mux"
+	"net/http"
 )
 
 func main() {
 
+	r := mux.NewRouter()
+
 	movieRepository := movie.Repository{}
 
-	data, _ := json.Marshal(movieRepository.GetByPage(1))
+	data := movieRepository.GetByPage(1)
 
-	fmt.Println(data)
+	movies, _ := json.Marshal(data)
+
+	r.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Write(movies)
+	})
+
+	http.Handle("/", r)
+
+	http.ListenAndServe(":3000", nil)
+
 }

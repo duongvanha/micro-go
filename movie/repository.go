@@ -22,7 +22,7 @@ func (r *Repository) GetByPage(page int) [5]Movie {
 		log.Fatal(e)
 	}
 
-	var movies [5]Movie
+	var moviesTmp [5]Movie
 
 	for i := 0; rows.Next(); i++ {
 		var namevi string
@@ -42,6 +42,7 @@ func (r *Repository) GetByPage(page int) [5]Movie {
 		var manufacturer string
 		var view string
 		var url string
+		var movies string
 
 		err = rows.Scan(
 			&namevi,
@@ -60,10 +61,12 @@ func (r *Repository) GetByPage(page int) [5]Movie {
 			&categories,
 			&manufacturer,
 			&view,
-			&url)
+			&url,
+			&movies,
+		)
 
-		movies[i] = Movie{NameVi: namevi, NameEn: nameen, Image: image, Status: status, IMDb: imdb, Director: director, Country: country, Year: year, Date: date, Time: time, Cam: cam, Quality: quality, Sub: sub, Categories: categories, Manufacturer: manufacturer, View: view, Url: url}
+		moviesTmp[i] = Movie{NameVi: namevi, NameEn: nameen, Image: image, Status: status, IMDb: imdb, Director: director, Country: country, Year: year, Date: date, Time: time, Cam: cam, Quality: quality, Sub: sub, Categories: categories, Manufacturer: manufacturer, View: view, Url: url}
 
 	}
-	return movies
+	return moviesTmp
 }
