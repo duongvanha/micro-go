@@ -2,17 +2,18 @@ package movie
 
 import (
 	"database/sql"
+	_ "github.com/joho/godotenv/autoload"
 	_ "github.com/lib/pq"
+	"os"
 )
 
 type Repository struct {
 }
 
 func (r *Repository) GetByPage(page int) ([5]Movie, error) {
-	connStr := "**"
 	var moviesTmp [5]Movie
 
-	db, err := sql.Open("postgres", connStr)
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		return moviesTmp, err
 	}
