@@ -13,11 +13,15 @@ func main() {
 
 	movieRepository := movie.Repository{}
 
-	data := movieRepository.GetByPage(1)
-
-	movies, _ := json.Marshal(data)
-
 	r.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		data, err := movieRepository.GetByPage(1)
+
+		movies, err := json.Marshal(data)
+
+		if err != nil {
+			writer.Write([]byte(err.Error()))
+			return
+		}
 		writer.Write(movies)
 	})
 

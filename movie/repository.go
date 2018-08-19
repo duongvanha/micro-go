@@ -3,26 +3,25 @@ package movie
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
-	"log"
 )
 
 type Repository struct {
 }
 
-func (r *Repository) GetByPage(page int) [5]Movie {
+func (r *Repository) GetByPage(page int) ([5]Movie, error) {
 	connStr := "**"
+	var moviesTmp [5]Movie
+
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatal(err)
+		return moviesTmp, err
 	}
 
 	rows, e := db.Query("SELECT * FROM movies LIMIT 5")
 
 	if e != nil {
-		log.Fatal(e)
+		return moviesTmp, e
 	}
-
-	var moviesTmp [5]Movie
 
 	for i := 0; rows.Next(); i++ {
 		var namevi string
@@ -68,5 +67,5 @@ func (r *Repository) GetByPage(page int) [5]Movie {
 		moviesTmp[i] = Movie{NameVi: namevi, NameEn: nameen, Image: image, Status: status, IMDb: imdb, Director: director, Country: country, Year: year, Date: date, Time: time, Cam: cam, Quality: quality, Sub: sub, Categories: categories, Manufacturer: manufacturer, View: view, Url: url}
 
 	}
-	return moviesTmp
+	return moviesTmp, nil
 }
