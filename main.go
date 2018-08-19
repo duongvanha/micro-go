@@ -1,17 +1,16 @@
 package main
 
 import (
-	"./auth"
+	"./movie"
+	"encoding/json"
 	"fmt"
 )
 
 func main() {
-	user := auth.User{Id: 12, UserName: "name", Password: "name"}
-	authService := auth.Service{}
 
-	authService.Register("sieunhangao	", "123456")
+	movieRepository := movie.Repository{}
 
-	authService.Login("sieunhangao", "123456")
+	data, _ := json.Marshal(movieRepository.GetByPage(1))
 
-	fmt.Println(user.ToString())
+	fmt.Println(data)
 }
