@@ -11,4 +11,20 @@ config env (db using postgres)
     export GOOS=darwin ( macOS )
     go build
 
-###
+### BUILD image
+    cd ..
+    docker build -t micro-go micro-go/
+
+### Make docker swarm
+    docker-machine create \
+      --driver virtualbox \
+      --virtualbox-cpu-count 2 \
+      --virtualbox-memory 2048 \
+      --virtualbox-disk-size 20000 \
+      swarm-manager-1
+
+    docker $(docker-machine config swarm-manager-1) swarm init --advertise-addr $(docker-machine ip swarm-manager-1)
+
+    docker network create --driver overlay my_network
+
+    docker service create --name=movieservice --replicas=1 --network=my_network -p=3000:3000 micro-go
