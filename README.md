@@ -13,7 +13,7 @@ config env (db using postgres)
 
 ### BUILD image
     cd ..
-    docker build -t micro-go micro-go/
+    docker build -t blademaster996/micro-go micro-go/
 
 ### Make docker swarm
     docker-machine create \
