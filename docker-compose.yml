@@ -1,0 +1,8 @@
+version: '0'
+
+services:
+  web:
+    image: micro-go
+    ports:
+    - "3000:3000"
+

@@ -8,7 +8,7 @@ config env (db using postgres)
     go test ./...
 
 ### BUILD
-    export GOOS=darwin ( macOS )
+    export GOOS=linux
     go build
 
 ### BUILD image
