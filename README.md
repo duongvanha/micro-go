@@ -27,4 +27,4 @@ config env (db using postgres)
 
     docker network create --driver overlay my_network
 
-    docker service create --name=movieservice --replicas=1 --network=my_network -p=3000:3000 blademaster996/micro-gox
+    docker service create --name=movieservice --replicas=1 --network=my_network -p=3000:3000 blademaster996/micro-go
